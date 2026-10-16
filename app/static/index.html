@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AI Influencer Studio — Амина</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@500;700&display=swap" rel="stylesheet">
+<style>
+body{font-family:Inter,system-ui}
+.mono{font-family:Manrope}
+.glass{backdrop-filter:blur(16px);background:rgba(255,255,255,.75)}
+</style>
+</head>
+<body class="bg-[#F8F6F1] text-zinc-900">
+<!-- header -->
+<header class="sticky top-0 z-30 glass border-b">
+  <div class="max-w-[1200px] mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-black text-white grid place-items-center font-extrabold">AI</div>
+      <div>
+        <div class="font-extrabold leading-none">AI Influencer Studio</div>
+        <div class="text-xs text-zinc-500">Создай и веди виртуального инфлюенсера • 2026</div>
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-2 text-sm">
+      <a href="#create" class="px-3 py-1.5 rounded-full bg-black text-white">Создать</a>
+      <a href="#plan" class="px-3 py-1.5 rounded-full border">План</a>
+      <a href="#learn" class="px-3 py-1.5 rounded-full border">Обучение</a>
+      <a href="/docs/GUIDE.md" target="_blank" class="px-3 py-1.5 rounded-full border">📖 Гайд</a>
+    </nav>
+  </div>
+</header>
+
+<!-- hero -->
+<section class="max-w-[1200px] mx-auto px-4 pt-8 pb-4 grid md:grid-cols-[1.2fr_.8fr] gap-6 items-center">
+  <div>
+    <div class="inline-flex items-center gap-2 text-xs bg-white border rounded-full px-3 py-1">✨ Пример персонажа загружен — <b>Амина, 24, Владикавказ</b> • <span id="health" class="text-emerald-600">проверка…</span></div>
+    <h1 class="text-[34px] md:text-[44px] font-extrabold leading-[0.95] mt-3">Твой AI-инфлюенсер<br><span class="bg-gradient-to-r from-violet-600 to-orange-500 bg-clip-text text-transparent">готов за выходные</span></h1>
+    <p class="text-zinc-600 mt-3 max-w-[60ch]">Это не просто генератор картинок. Это панель управления персонажем: паспорт, промпты, стабильное лицо, контент-план на 30 дней, подписи и инструкции для видео/голоса. Подключи ключи — и генерируй прямо отсюда. Без ключей — получай готовые промпты для Leonardo / Fal / Kling / HeyGen.</p>
+    <div class="flex flex-wrap gap-2 mt-4">
+      <a href="#create" class="px-5 py-2.5 bg-black text-white rounded-full font-semibold">Начать с Амины →</a>
+      <button onclick="document.getElementById('bibleModal').showModal()" class="px-5 py-2.5 bg-white border rounded-full">Посмотреть Character Bible</button>
+      <span class="text-xs text-zinc-500 self-center">Без кода • Работает в DEMO без ключей</span>
+    </div>
+    <div class="grid grid-cols-3 gap-3 mt-6">
+      <div class="bg-white rounded-2xl p-3 border"><div class="text-2xl font-extrabold">11.7B$</div><div class="text-xs text-zinc-500">рынок virtual influencers 2026</div></div>
+      <div class="bg-white rounded-2xl p-3 border"><div class="text-2xl font-extrabold">5.7%</div><div class="text-xs text-zinc-500">средний ER vs 1.9% у людей</div></div>
+      <div class="bg-white rounded-2xl p-3 border"><div class="text-2xl font-extrabold">2100₽</div><div class="text-xs text-zinc-500">старт за месяц (30 фото+8 видео)</div></div>
+    </div>
+  </div>
+  <div class="bg-white rounded-[24px] p-3 border shadow-sm">
+    <div class="grid grid-cols-3 gap-2">
+      <img src="/assets/amina_reference.jpg" class="rounded-2xl object-cover h-[220px] w-full"/>
+      <img src="/assets/amina_cafe.jpg" class="rounded-2xl object-cover h-[220px] w-full"/>
+      <img src="/assets/amina_travel.jpg" class="rounded-2xl object-cover h-[220px] w-full"/>
+    </div>
+    <div class="p-3">
+      <div class="font-bold">Амина • 24 • Владикавказ</div>
+      <div class="text-sm text-zinc-600">travel + lifestyle + soft fashion — «Кавказ глазами девушки»</div>
+      <div class="flex gap-1 mt-2 text-xs">
+        <span class="px-2 py-1 bg-zinc-100 rounded-full">#кавказ</span>
+        <span class="px-2 py-1 bg-zinc-100 rounded-full">#уют</span>
+        <span class="px-2 py-1 bg-zinc-100 rounded-full">#минимализм</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- creator -->
+<section id="create" class="max-w-[1200px] mx-auto px-4 py-6 grid lg:grid-cols-[1fr_1fr] gap-6">
+  <!-- left: prompt builder -->
+  <div class="bg-white rounded-[24px] border p-5">
+    <h2 class="font-extrabold text-xl">1. Генератор промптов для фото</h2>
+    <p class="text-sm text-zinc-500">Паспорт Амины уже вшит. Пиши только сцену — получи готовый промпт для Flux / Midjourney / Nano Banana.</p>
+    <div class="grid gap-3 mt-4">
+      <label class="text-sm">Сцена (что делает персонаж)
+        <input id="scene" class="w-full mt-1 border rounded-xl px-3 py-2" placeholder="напр. sitting in a cozy cafe with latte, morning light"/>
+      </label>
+      <div class="grid grid-cols-2 gap-3">
+        <label class="text-sm">Стиль
+          <select id="style" class="w-full mt-1 border rounded-xl px-3 py-2">
+            <option value="photorealistic">Photorealistic</option>
+            <option value="iphone">iPhone candid</option>
+            <option value="cinematic">Cinematic</option>
+            <option value="studio">Studio</option>
+            <option value="mirror_selfie">Mirror selfie</option>
+          </select>
+        </label>
+        <label class="text-sm">Формат
+          <select id="ar" class="w-full mt-1 border rounded-xl px-3 py-2">
+            <option value="4:5">4:5 (IG portrait)</option>
+            <option value="9:16">9:16 (Reels)</option>
+            <option value="1:1">1:1</option>
+            <option value="3:4">3:4</option>
+          </select>
+        </label>
+      </div>
+      <label class="text-sm">Дополнительно
+        <input id="extra" class="w-full mt-1 border rounded-xl px-3 py-2" placeholder="beige sweater, minimal makeup…"/>
+      </label>
+      <div class="flex gap-2">
+        <button onclick="buildPrompt()" class="flex-1 bg-black text-white rounded-xl py-2.5 font-semibold">Сгенерировать промпт</button>
+        <button onclick="fillRandom()" class="px-4 border rounded-xl">🎲 Пример</button>
+      </div>
+      <div class="bg-zinc-50 border rounded-xl p-3 mono text-sm" id="promptOut">Промпт появится здесь…</div>
+      <div class="flex gap-2">
+        <button onclick="copyPrompt()" class="px-3 py-1.5 bg-white border rounded-full text-sm">Копировать</button>
+        <button onclick="genImage()" class="px-3 py-1.5 bg-violet-600 text-white rounded-full text-sm">Проверить (DEMO/ключ)</button>
+      </div>
+      <div id="genOut" class="text-xs text-zinc-600 whitespace-pre-wrap"></div>
+      <div class="text-xs text-zinc-500 p-2 bg-amber-50 rounded-xl border border-amber-200">
+        <b>Как использовать:</b> скопируй промпт → вставь в Leonardo AI (Flux Dev), fal.ai Flux, syntx.ai Nano Banana Pro или APOB с референсом <code>assets/amina_reference.jpg</code> (Omni Reference, strength 0.35–0.45). Для локально — Stable Diffusion + IP-Adapter.
+      </div>
+    </div>
+
+    <h3 class="font-bold mt-6">Стартовые промпты Амины</h3>
+    <div id="starters" class="grid gap-2 mt-2"></div>
+  </div>
+
+  <!-- right: captions + video + voice -->
+  <div class="grid gap-6">
+    <div class="bg-white rounded-[24px] border p-5">
+      <h2 class="font-extrabold text-xl">2. Генератор подписей</h2>
+      <div class="grid grid-cols-2 gap-3 mt-3">
+        <select id="pillar" class="border rounded-xl px-3 py-2">
+          <option value="caucasus">🏔️ Кавказ</option>
+          <option value="city">☕️ Город и уют</option>
+          <option value="style">🤍 Образы</option>
+        </select>
+        <input id="topic" class="border rounded-xl px-3 py-2" placeholder="тема: водопад, кофейня…"/>
+      </div>
+      <button onclick="buildCaption()" class="w-full mt-3 bg-black text-white rounded-xl py-2.5 font-semibold">Сгенерировать подпись</button>
+      <div id="captionOut" class="mt-3 bg-zinc-50 border rounded-xl p-3 text-sm whitespace-pre-wrap">Подпись появится здесь…</div>
+      <button onclick="copyCaption()" class="mt-2 px-3 py-1.5 bg-white border rounded-full text-sm">Копировать подпись</button>
+    </div>
+
+    <div class="bg-white rounded-[24px] border p-5">
+      <h2 class="font-extrabold text-xl">3. Видео и голос</h2>
+      <div class="grid gap-2 mt-2 text-sm">
+        <input id="videoPrompt" class="border rounded-xl px-3 py-2" placeholder="промпт движения: gentle head movement, natural blink"/>
+        <input id="voiceText" class="border rounded-xl px-3 py-2" placeholder="текст для озвучки: Привет, это Амина! Сегодня покажу…"/>
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="genVideo()" class="bg-zinc-900 text-white rounded-xl py-2">Сделать видео (инструкция)</button>
+          <button onclick="genVoice()" class="bg-white border rounded-xl py-2">Озвучить (ElevenLabs)</button>
+        </div>
+        <div id="mediaOut" class="bg-zinc-50 border rounded-xl p-3 whitespace-pre-wrap text-xs">Результат…</div>
+        <div class="text-xs text-zinc-500">Без ключа получишь пошаговую инструкцию для Kling / Higgsfield / HeyGen / Hedra. С ключом — прямой вызов API (см. .env.example).</div>
+      </div>
+    </div>
+
+    <div class="bg-black text-white rounded-[24px] p-5">
+      <h3 class="font-extrabold">Хочешь своего персонажа?</h3>
+      <p class="text-sm text-zinc-300 mt-1">Скопируй <code>characters/amina.json</code> → поменяй имя/город/нишу/промпт-паспорт → перезагрузи сервер. Всё заработает с новым лицом.</p>
+      <a href="#plan" class="inline-block mt-3 px-4 py-2 bg-white text-black rounded-full text-sm font-semibold">Смотреть план на 30 дней ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- plan -->
+<section id="plan" class="max-w-[1200px] mx-auto px-4 py-6">
+  <div class="bg-white rounded-[24px] border p-5">
+    <div class="flex items-center justify-between">
+      <h2 class="font-extrabold text-xl">📅 Контент-план на 30 дней — автогенерация</h2>
+      <button onclick="loadPlan()" class="px-4 py-2 bg-black text-white rounded-full text-sm">Перегенерить</button>
+    </div>
+    <p class="text-sm text-zinc-500">70% ценность / 20% вовлечение / 10% продажа. Каждый день — промпт + подпись. Копируй и генери.</p>
+    <div class="overflow-auto mt-4">
+      <table class="w-full text-sm">
+        <thead class="text-xs text-zinc-500"><tr><th class="text-left p-2">День</th><th class="text-left p-2">Столп</th><th class="text-left p-2">Тема</th><th class="text-left p-2">Формат</th><th class="text-left p-2">Промпт</th><th class="text-left p-2">Подпись</th></tr></thead>
+        <tbody id="planBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- learn -->
+<section id="learn" class="max-w-[1200px] mx-auto px-4 py-6 grid md:grid-cols-3 gap-4">
+  <div class="bg-white rounded-2xl border p-4">
+    <div class="font-bold">🎓 Полный гайд</div>
+    <div class="text-sm text-zinc-600">Всё о AI-инфлюенсерах: рынок, инструменты, пошаговый запуск, юридические нюансы, бюджеты, ошибки.</div>
+    <a href="/docs/GUIDE.md" target="_blank" class="inline-block mt-3 px-3 py-1.5 bg-black text-white rounded-full text-sm">Открыть GUIDE.md</a>
+    <a href="https://github.com/maksummatatov10-spec1231/ai-influencer" target="_blank" class="text-xs text-zinc-500 block mt-2">Репозиторий</a>
+  </div>
+  <div class="bg-white rounded-2xl border p-4">
+    <div class="font-bold">🧩 Стек 2026</div>
+    <ul class="text-sm text-zinc-600 list-disc ml-4 mt-1">
+      <li>Flux.1 / Midjourney / Nano Banana — лицо</li>
+      <li>Higgsfield Soul ID / Flux LoRA — фиксация</li>
+      <li>Kling 3.0 / Runway / Veo 3.1 — видео</li>
+      <li>ElevenLabs / HeyGen / Hedra — голос</li>
+    </ul>
+  </div>
+  <div class="bg-white rounded-2xl border p-4">
+    <div class="font-bold">⚖️ Закон и маркировка</div>
+    <div class="text-sm text-zinc-600">Instagram с 31.08.2026 требует метку <b>AI-generated profile</b> — без неё режут охваты Reels. FTC — обязательный disclosure. В РФ — маркировка рекламы (ERID).</div>
+    <div class="text-xs text-zinc-500 mt-2">См. раздел 12 гайда.</div>
+  </div>
+</section>
+
+<footer class="max-w-[1200px] mx-auto px-4 py-8 text-center text-xs text-zinc-500">
+  Сделано для тебя • 16.10.2026 • Владикавказ • AI Influencer Studio • DEMO без ключей, с ключами — генерация через fal.ai / ElevenLabs / HeyGen
+</footer>
+
+<dialog id="bibleModal" class="rounded-2xl p-0 max-w-[720px] w-[95%] backdrop:bg-black/50">
+  <div class="p-6">
+    <div class="flex justify-between items-center"><h3 class="font-extrabold text-lg">Character Bible — Амина</h3><button onclick="bibleModal.close()" class="px-3 py-1 border rounded-full">✕</button></div>
+    <pre id="biblePre" class="mt-3 bg-zinc-50 border rounded-xl p-3 text-xs overflow-auto max-h-[60vh]"></pre>
+  </div>
+</dialog>
+
+<script>
+async function health(){
+  try{
+    const r=await fetch('/health'); const j=await r.json();
+    document.getElementById('health').textContent=j.character+' • '+j.assets+' assets • ok';
+  }catch(e){document.getElementById('health').textContent='offline'}
+}
+health();
+
+let lastPrompt="", lastCaption="";
+
+async function buildPrompt(){
+  const scene=document.getElementById('scene').value;
+  const style=document.getElementById('style').value;
+  const ar=document.getElementById('ar').value;
+  const extra=document.getElementById('extra').value;
+  if(!scene){alert('Введи сцену');return}
+  const r=await fetch('/api/prompt/build',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({scene,style,ar,extra})});
+  const j=await r.json();
+  lastPrompt=j.prompt;
+  document.getElementById('promptOut').textContent=j.prompt;
+}
+function copyPrompt(){ if(!lastPrompt) return; navigator.clipboard.writeText(lastPrompt); alert('Скопировано'); }
+
+async function genImage(){
+  if(!lastPrompt){alert('Сначала сгенерируй промпт');return}
+  document.getElementById('genOut').textContent='Генерация…';
+  const r=await fetch('/api/generate/image',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:lastPrompt, reference:'assets/amina_reference.jpg'})});
+  const j=await r.json();
+  document.getElementById('genOut').textContent=JSON.stringify(j,null,2);
+}
+async function buildCaption(){
+  const pillar=document.getElementById('pillar').value;
+  const topic=document.getElementById('topic').value;
+  const r=await fetch('/api/caption/build',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pillar,topic})});
+  const j=await r.json();
+  lastCaption=j.caption;
+  document.getElementById('captionOut').textContent=j.caption;
+}
+function copyCaption(){ if(!lastCaption) return; navigator.clipboard.writeText(lastCaption); alert('Скопировано'); }
+async function genVideo(){
+  const prompt=document.getElementById('videoPrompt').value||'gentle head movement, natural blink, soft smile, camera push-in';
+  const r=await fetch('/api/generate/video',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:'assets/amina_reference.jpg', prompt})});
+  const j=await r.json();
+  document.getElementById('mediaOut').textContent=JSON.stringify(j,null,2);
+}
+async function genVoice(){
+  const text=document.getElementById('voiceText').value||'Привет, это Амина! Сегодня покажу уютную кофейню во Владикавказе.';
+  const r=await fetch('/api/generate/voice',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text, voice_id:'Rachel'})});
+  const j=await r.json();
+  document.getElementById('mediaOut').textContent=JSON.stringify(j,null,2);
+}
+function fillRandom(){
+  const scenes=["sitting in a cozy Vladikavkaz cafe with latte, morning window light","standing on a mountain viewpoint at sunset, wind in hair, white dress","mirror selfie in minimalist apartment, jeans and white tee, phone in hand","walking on a street in autumn, beige trench coat, street style","at home desk with book and tea, warm cozy tones"];
+  document.getElementById('scene').value=scenes[Math.floor(Math.random()*scenes.length)];
+  buildPrompt();
+}
+async function loadBible(){
+  const r=await fetch('/api/character'); const j=await r.json();
+  document.getElementById('biblePre').textContent=JSON.stringify(j,null,2);
+}
+loadBible();
+async function loadStarters(){
+  const r=await fetch('/api/starters'); const j=await r.json();
+  const c=document.getElementById('starters');
+  c.innerHTML=j.prompts.map(p=>`<div class="text-xs bg-zinc-50 border rounded-xl p-2 flex justify-between gap-2"><span class="mono">${p}</span><button onclick="navigator.clipboard.writeText(\`${p.replace(/`/g,'\\`')}\`);alert('Скопировано')" class="shrink-0 px-2 py-1 bg-white border rounded-full">Копировать</button></div>`).join('');
+}
+loadStarters();
+async function loadPlan(){
+  const r=await fetch('/api/plan?days=30'); const j=await r.json();
+  const body=document.getElementById('planBody');
+  body.innerHTML=j.plan.map(row=>`
+    <tr class="border-t align-top">
+      <td class="p-2 font-bold">${row.day}</td>
+      <td class="p-2"><span class="px-2 py-1 bg-zinc-100 rounded-full text-xs">${row.pillar_name}</span></td>
+      <td class="p-2">${row.topic}</td>
+      <td class="p-2"><span class="text-xs px-2 py-1 border rounded-full">${row.format}</span></td>
+      <td class="p-2"><div class="max-w-[28ch] truncate mono text-xs" title="${row.prompt.replace(/"/g,'&quot;')}">${row.prompt}</div><button onclick="navigator.clipboard.writeText(\`${row.prompt.replace(/`/g,'\\`')}\`);alert('Промпт скопирован')" class="text-xs underline">копировать</button></td>
+      <td class="p-2"><div class="max-w-[28ch] truncate text-xs" title="${row.caption.replace(/"/g,'&quot;')}">${row.caption.slice(0,120)}…</div><button onclick="navigator.clipboard.writeText(\`${row.caption.replace(/`/g,'\\`')}\`);alert('Подпись скопирована')" class="text-xs underline">копировать</button></td>
+    </tr>
+  `).join('');
+}
+loadPlan();
+</script>
+</body>
+</html>
